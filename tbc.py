@@ -88,21 +88,14 @@ class Character(object):
         randomChance = random.randint(1, 100)
         if randomChance <= self.hitChance:
             randomDamage = random.randint(1, self.maxDamage)
+            randomDamage = randomDamage - opponent.armor
             print(f"{self.name} hits {opponent.name} for {randomDamage} damage!")
             opponent.hitPoints -= randomDamage 
             if opponent.hitPoints <= 0:
                 print(f"{opponent.name} has been defeated!")
         else:
             print(f"{self.name} misses the attack!")
-def main():
-    playerOne = Character()
-    playerTwo = Character()
-    
-    playerOne.name = "George"
-    playerOne.printStats()
-    
-    playerTwo.name = "Bob"
-    playerTwo.printStats()
+def fight(playerOne, playerTwo):
     keepGoing = True
     while keepGoing:
         play = input("""
@@ -118,5 +111,16 @@ Press Enter to Attack
                 keepGoing = False
                 print(f"{playerTwo.name} Has Lost!")
 
+def main():
+    playerOne = Character()
+    playerTwo = Character()
+    
+    playerOne.name = "George"
+    playerOne.printStats()
+    
+    playerTwo.name = "Bob"
+    playerTwo.printStats()
+
+    fight(playerOne, playerTwo)
 if __name__ == "__main__":
     main()
